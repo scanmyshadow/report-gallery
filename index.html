@@ -97,7 +97,27 @@ html,body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-seri
     <button class="stab" onclick="switchS('photo','2',this)">&#8377;298 Leaks</button>
     <button class="stab" onclick="switchS('photo','9',this)">&#8377;998 Deep Dive</button>
   </div>
-  <div class="spanel active" id="photo-c"><div class="cs"><span>All Clear sample — coming soon</span></div></div>
+  <div class="spanel active" id="photo-c">
+    <div class="th"><span class="tl">All Clear</span><span class="tb tc">&#10003; No Matches Found</span></div>
+    <div class="td">Your photo was checked across the web. No matches or reverse image results were found.</div>
+    <div class="viewer">
+      <div class="img-frame" id="f-photo-c">
+        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/photo-allclear/1.jpeg" class="visible" alt=""/>
+        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/photo-allclear/2.jpeg" alt=""/>
+        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/photo-allclear/3.jpeg" alt=""/>
+      </div>
+      <button class="nav-btn nav-prev" id="prev-photo-c" onclick="step('photo-c',-1)"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg></button>
+      <button class="nav-btn nav-next" id="next-photo-c" onclick="step('photo-c',1)"><svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg></button>
+      <div class="vfooter">
+        <span class="vcap" id="cap-photo-c">Scan summary</span>
+        <div class="dots" id="dots-photo-c">
+          <div class="dot active" onclick="goTo('photo-c',0)"></div>
+          <div class="dot" onclick="goTo('photo-c',1)"></div>
+          <div class="dot" onclick="goTo('photo-c',2)"></div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="spanel" id="photo-2">
     <div class="th"><span class="tl">Privacy Scan</span><span class="tb t2">&#8377;298</span></div>
     <div class="td">Where your photo appears online — reverse image matches across the web.</div>
@@ -157,7 +177,7 @@ html,body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-seri
 
 <script>
 const state={};
-const caps={"photo-2":["Match summary","Sites your photo appears on","Risk rating","Privacy protection steps"],"photo-9":["Full match detail","Exact source URLs","Takedown guidance","Identity risk assessment","Your privacy guide"]};
+const caps={"photo-c":["Scan summary","Sources checked","Privacy tips"],"photo-2":["Match summary","Sites your photo appears on","Risk rating","Privacy protection steps"],"photo-9":["Full match detail","Exact source URLs","Takedown guidance","Identity risk assessment","Your privacy guide"]};
 const ft={};
 function showSlide(id,idx){const f=document.getElementById("f-"+id);if(!f)return;f.querySelectorAll("img").forEach((img,i)=>img.classList.toggle("visible",i===idx));const d=document.getElementById("dots-"+id);if(d)d.querySelectorAll(".dot").forEach((dot,i)=>dot.classList.toggle("active",i===idx));const c=document.getElementById("cap-"+id);if(c&&caps[id])c.textContent=caps[id][idx]||"";}
 function flash(id){["prev-","next-"].forEach(p=>{const b=document.getElementById(p+id);if(!b)return;b.style.opacity="1";clearTimeout(ft[p+id]);ft[p+id]=setTimeout(()=>{b.style.opacity="0.5"},500);});}
@@ -165,7 +185,7 @@ function step(id,dir){if(state[id]===undefined)state[id]=0;const f=document.getE
 function goTo(id,idx){state[id]=idx;showSlide(id,idx);flash(id);}
 function switchM(id,el){document.querySelectorAll(".mpanel").forEach(p=>p.classList.remove("active"));document.querySelectorAll(".mtab").forEach(t=>t.classList.remove("active"));document.getElementById(id).classList.add("active");el.classList.add("active");}
 function switchS(main,sub,el){const p=document.getElementById(main);p.querySelectorAll(".spanel").forEach(x=>x.classList.remove("active"));p.querySelectorAll(".stab").forEach(t=>t.classList.remove("sc","s2","s9"));document.getElementById(main+"-"+sub).classList.add("active");el.classList.add(sub==="c"?"sc":sub==="2"?"s2":"s9");}
-["photo-2","photo-9"].forEach(id=>{state[id]=0;});
+["photo-c","photo-2","photo-9"].forEach(id=>{state[id]=0;});
 </script>
 </body>
 </html>
