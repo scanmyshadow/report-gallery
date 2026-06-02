@@ -372,7 +372,17 @@ function switchS(main,sub,el){const p=document.getElementById(main);p.querySelec
 ["photo-c","photo-2","photo-9","email-c","email-2","email-9","phone-c","phone-2","phone-9"].forEach(id=>{state[id]=0;});
 document.addEventListener("keydown",function(e){if(e.key!=="ArrowLeft"&&e.key!=="ArrowRight")return;const active=document.querySelector(".mpanel.active");if(!active)return;const sub=active.querySelector(".spanel.active");if(!sub)return;const id=sub.id;step(id,e.key==="ArrowRight"?1:-1);});
 // ── Lightbox ──────────────────────────────────────────────
+let _lbId=null; // tracks which gallery set is open in lightbox
+
+function getActiveId(){
+  const active=document.querySelector(".mpanel.active");
+  if(!active)return null;
+  const sub=active.querySelector(".spanel.active");
+  return sub?sub.id:null;
+}
+
 function openLightbox(src){
+  _lbId=getActiveId();
   const lb=document.getElementById("lightbox");
   document.getElementById("lightbox-img").src=src;
   lb.classList.add("open");
@@ -381,38 +391,58 @@ function openLightbox(src){
 function closeLightbox(){
   document.getElementById("lightbox").classList.remove("open");
   document.body.style.overflow="";
+  _lbId=null;
 }
-// Click image to open (desktop + mobile tap)
+
+// Step inside lightbox — no wrap, stops at ends
+function lbStep(dir){
+  if(!_lbId)return;
+  const f=document.getElementById("f-"+_lbId);
+  if(!f)return;
+  const imgs=f.querySelectorAll("img");
+  const total=imgs.length;
+  const cur=state[_lbId]||0;
+  const next=Math.max(0,Math.min(total-1,cur+dir));
+  if(next===cur)return;
+  state[_lbId]=next;
+  showSlide(_lbId,next);
+  flash(_lbId);
+  // update lightbox image
+  document.getElementById("lightbox-img").src=imgs[next].src;
+}
+
+// Click image to open
 document.addEventListener("click",function(e){
   const img=e.target;
   if(img.tagName!=="IMG"||!img.closest(".img-frame")||!img.classList.contains("visible"))return;
   openLightbox(img.src);
 });
-// Swipe down to close lightbox on mobile
-let _lbty=0;
-document.getElementById("lightbox").addEventListener("touchstart",function(e){
-  _lbty=e.touches[0].clientY;
-},{passive:true});
-document.getElementById("lightbox").addEventListener("touchend",function(e){
-  if(e.changedTouches[0].clientY-_lbty>80)closeLightbox();
-});
 
-// ── Swipe left/right to navigate slides (only when lightbox closed) ──
-let _tsx=0,_tsy=0;
+// ── Single unified touch handler ──────────────────────────
+let _tx=0,_ty=0;
 document.addEventListener("touchstart",function(e){
-  _tsx=e.touches[0].clientX;
-  _tsy=e.touches[0].clientY;
+  _tx=e.touches[0].clientX;
+  _ty=e.touches[0].clientY;
 },{passive:true});
+
 document.addEventListener("touchend",function(e){
-  if(document.getElementById("lightbox").classList.contains("open"))return;
-  const dx=e.changedTouches[0].clientX-_tsx;
-  const dy=e.changedTouches[0].clientY-_tsy;
+  const dx=e.changedTouches[0].clientX-_tx;
+  const dy=e.changedTouches[0].clientY-_ty;
+  const lbOpen=document.getElementById("lightbox").classList.contains("open");
+
+  if(lbOpen){
+    // swipe down → close
+    if(dy>80&&Math.abs(dx)<Math.abs(dy)){closeLightbox();return;}
+    // swipe left/right → navigate inside lightbox
+    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)){lbStep(dx<0?1:-1);return;}
+    return;
+  }
+
+  // lightbox closed → swipe left/right navigates gallery
   if(Math.abs(dx)<80||Math.abs(dy)>60)return;
-  const active=document.querySelector(".mpanel.active");
-  if(!active)return;
-  const sub=active.querySelector(".spanel.active");
-  if(!sub)return;
-  step(sub.id,dx<0?1:-1);
+  const id=getActiveId();
+  if(!id)return;
+  step(id,dx<0?1:-1);
 });
 </script>
 </body>
