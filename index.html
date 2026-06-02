@@ -61,13 +61,13 @@ html,body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-seri
 <p class="sub">Actual screenshots from real scans. Your data is already out there — this is what we find.</p>
 
 <div class="main-tabs">
-  <button class="mtab active" onclick="switchM('phone',this)"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="3"/><circle cx="12" cy="17.5" r="1" fill="currentColor" stroke="none"/></svg>Phone</button>
+  <button class="mtab active" onclick="switchM('photo',this)"><svg viewBox="0 0 24 24"><path d="M14.5 4H9.5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/></svg>Photo</button>
   <button class="mtab" onclick="switchM('email',this)"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><polyline points="2,5 12,13 22,5"/></svg>Email</button>
-  <button class="mtab" onclick="switchM('photo',this)"><svg viewBox="0 0 24 24"><path d="M14.5 4H9.5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/></svg>Photo</button>
+  <button class="mtab" onclick="switchM('phone',this)"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="3"/><circle cx="12" cy="17.5" r="1" fill="currentColor" stroke="none"/></svg>Phone</button>
 </div>
 
 <!-- PHONE -->
-<div class="mpanel active" id="phone">
+<div class="mpanel" id="phone">
   <div class="sub-tabs">
     <button class="stab sc" onclick="switchS('phone','c',this)">&#10003; All Clear</button>
     <button class="stab" onclick="switchS('phone','2',this)">&#8377;298 Leaks</button>
@@ -129,7 +129,7 @@ html,body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-seri
 </div>
 
 <!-- PHOTO -->
-<div class="mpanel" id="photo">
+<div class="mpanel active" id="photo">
   <div class="sub-tabs">
     <button class="stab sc" onclick="switchS('photo','c',this)">&#10003; All Clear</button>
     <button class="stab" onclick="switchS('photo','2',this)">&#8377;298 Leaks</button>
