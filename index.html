@@ -230,6 +230,8 @@ function switchM(id,el){document.querySelectorAll(".mpanel").forEach(p=>p.classL
 function switchS(main,sub,el){const p=document.getElementById(main);p.querySelectorAll(".spanel").forEach(x=>x.classList.remove("active"));p.querySelectorAll(".stab").forEach(t=>t.classList.remove("sc","s2","s9"));document.getElementById(main+"-"+sub).classList.add("active");el.classList.add(sub==="c"?"sc":sub==="2"?"s2":"s9");}
 ["photo-c","photo-2","photo-9","email-9"].forEach(id=>{state[id]=0;});
 document.addEventListener("keydown",function(e){if(e.key!=="ArrowLeft"&&e.key!=="ArrowRight")return;const active=document.querySelector(".mpanel.active");if(!active)return;const sub=active.querySelector(".spanel.active");if(!sub)return;const id=sub.id;step(id,e.key==="ArrowRight"?1:-1);});
+document.addEventListener("touchstart",function(e){window._tsx=e.touches[0].clientX;},{ passive:true });
+document.addEventListener("touchend",function(e){if(window._tsx===undefined)return;const dx=e.changedTouches[0].clientX-window._tsx;if(Math.abs(dx)<40)return;const active=document.querySelector(".mpanel.active");if(!active)return;const sub=active.querySelector(".spanel.active");if(!sub)return;step(sub.id,dx<0?1:-1);});
 </script>
 </body>
 </html>
