@@ -55,6 +55,10 @@ html,body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-seri
 .cta-n{font-size:12px;color:rgba(234,230,242,0.28);margin-bottom:18px;line-height:1.8}
 .cta-b{display:inline-block;padding:14px 42px;border-radius:999px;background:linear-gradient(160deg,#d4af37,#b8962e);color:#000;font-size:14.5px;font-weight:700;cursor:pointer;letter-spacing:.03em;font-family:"DM Sans",sans-serif;text-decoration:none;box-shadow:0 4px 24px rgba(212,175,55,0.2)}
 @media(max-width:480px){.main-tabs{width:fit-content}.mtab{padding:8px 14px;font-size:12px}.mtab svg{width:12px;height:12px}}
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;align-items:center;justify-content:center;cursor:pointer}
+.lightbox.open{display:flex}
+.lightbox img{max-width:95vw;max-height:92vh;object-fit:contain;border-radius:10px;pointer-events:none}
+.lightbox-close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;line-height:1}
 </style>
 </head>
 <body>
@@ -350,6 +354,11 @@ html,body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-seri
 
 </div>
 
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <div class="lightbox-close" onclick="closeLightbox()">&#x2715;</div>
+  <img id="lightbox-img" src="" alt=""/>
+</div>
+
 <script>
 const state={};
 const caps={"photo-c":["Scan summary","Sources checked","Privacy tips","Next steps"],"photo-2":["Match summary","Sites your photo appears on","Risk rating","Privacy protection steps","Removal toolkit","Sources checked","Next steps"],"photo-9":["Full match detail","Exact source URLs","Takedown guidance","Identity risk assessment","Your privacy guide"],"phone-c":["Scan summary","Sources checked","Privacy tips"],"phone-2":["Our finding","Platforms found","Where number found","Data breaches","Digital timeline","Sources checked","Removal toolkit","Privacy guide","Next steps"],"phone-9":["Our finding","Digital shadow","Platforms found","Also on","Where number found","Data breaches","Digital timeline","Sources checked","Privacy guide"],"email-c":["Scan summary","Sources checked","Privacy tips"],"email-2":["Our finding","Digital shadow","Profile photos","Also on","Locations","Where email found","Data breaches","Digital timeline","Sources checked","Removal toolkit","Privacy guide","Next steps","Upsell"],"email-9":["Our finding","Digital shadow","Profile photos","Also on","Locations","Where email found","Data breaches","Digital timeline","Sources checked","Removal toolkit","Privacy guide","Next steps"]};
@@ -362,8 +371,16 @@ function switchM(id,el){document.querySelectorAll(".mpanel").forEach(p=>p.classL
 function switchS(main,sub,el){const p=document.getElementById(main);p.querySelectorAll(".spanel").forEach(x=>x.classList.remove("active"));p.querySelectorAll(".stab").forEach(t=>t.classList.remove("sc","s2","s9"));document.getElementById(main+"-"+sub).classList.add("active");el.classList.add(sub==="c"?"sc":sub==="2"?"s2":"s9");}
 ["photo-c","photo-2","photo-9","email-c","email-2","email-9","phone-c","phone-2","phone-9"].forEach(id=>{state[id]=0;});
 document.addEventListener("keydown",function(e){if(e.key!=="ArrowLeft"&&e.key!=="ArrowRight")return;const active=document.querySelector(".mpanel.active");if(!active)return;const sub=active.querySelector(".spanel.active");if(!sub)return;const id=sub.id;step(id,e.key==="ArrowRight"?1:-1);});
-document.addEventListener("touchstart",function(e){window._tsx=e.touches[0].clientX;},{ passive:true });
-document.addEventListener("touchend",function(e){if(window._tsx===undefined)return;const dx=e.changedTouches[0].clientX-window._tsx;if(Math.abs(dx)<40)return;const active=document.querySelector(".mpanel.active");if(!active)return;const sub=active.querySelector(".spanel.active");if(!sub)return;step(sub.id,dx<0?1:-1);});
+document.addEventListener("touchstart",function(e){window._tsx=e.touches[0].clientX;window._tsy=e.touches[0].clientY;},{ passive:true });
+document.addEventListener("touchend",function(e){if(window._tsx===undefined)return;const dx=e.changedTouches[0].clientX-window._tsx;const dy=e.changedTouches[0].clientY-window._tsy;if(Math.abs(dx)<80||Math.abs(dy)>60)return;const active=document.querySelector(".mpanel.active");if(!active)return;const sub=active.querySelector(".spanel.active");if(!sub)return;step(sub.id,dx<0?1:-1);});
+function openLightbox(src){const lb=document.getElementById("lightbox");document.getElementById("lightbox-img").src=src;lb.classList.add("open");document.body.style.overflow="hidden";}
+function closeLightbox(){document.getElementById("lightbox").classList.remove("open");document.body.style.overflow="";}
+// swipe down to close lightbox
+let _lbty=0;
+document.getElementById("lightbox").addEventListener("touchstart",function(e){_lbty=e.touches[0].clientY;},{passive:true});
+document.getElementById("lightbox").addEventListener("touchend",function(e){if(e.changedTouches[0].clientY-_lbty>80)closeLightbox();});
+// make all viewer images clickable
+document.querySelectorAll(".img-frame img").forEach(img=>{img.style.cursor="zoom-in";img.addEventListener("click",function(){if(this.classList.contains("visible"))openLightbox(this.src);});});
 </script>
 </body>
 </html>
