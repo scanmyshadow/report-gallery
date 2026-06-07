@@ -79,22 +79,27 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{display:none}
   display:flex;align-items:center;justify-content:center;
   min-width:100%;min-height:100%;
   box-sizing:border-box;
+  /* Safari: ensure inner fills stage height */
+  height:100%;
 }
 .lightbox img{
   display:block;
   /* fit inside viewport by default */
   max-width:min(100%,760px);
   max-height:calc(100dvh - 110px);
+  max-height:calc(-webkit-fill-available - 110px);
   width:auto;height:auto;
   object-fit:contain;
   border-radius:12px;
   box-shadow:0 26px 80px rgba(0,0,0,0.58),0 0 0 1px rgba(255,255,255,0.1);
   background:#0b0b0f;
+  /* Safari centering fix: margin:auto inside flex container */
+  margin:auto;
   /* dismiss drag transform applied by JS */
   transform:translate3d(0,0,0);
   transition:transform .18s ease;
   will-change:transform;
-  pointer-events:none;/* prevent img from eating touch events */
+  pointer-events:none;
   user-select:none;-webkit-user-select:none;
 }
 .lightbox-bar{
@@ -493,8 +498,10 @@ function openLightbox(src){
   lb.setAttribute("aria-hidden","false");
   lb.focus({preventScroll:true});
   document.body.style.overflow="hidden";
-  // Reset scroll position to center
+  // Safari fix: set explicit stage height after open so flex centering works
   requestAnimationFrame(function(){
+    const barH=document.getElementById("lightbox-bar").offsetHeight||44;
+    stage.style.height=(window.innerHeight-barH)+"px";
     stage.scrollLeft=0;stage.scrollTop=0;
   });
 }
@@ -514,6 +521,7 @@ function closeLightbox(){
     lb.setAttribute("aria-hidden","true");
     lb.style.transition="";lb.style.background="";
     img.style.transition="";img.style.transform="";img.style.opacity="";
+    getLbStage().style.height="";
     document.body.style.overflow="";
     _lbId=null;_dragY=0;_dismissing=false;
   },200);
