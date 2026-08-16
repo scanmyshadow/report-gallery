@@ -2,631 +2,443 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Scan My Shadow - Sample Reports</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>Scan My Shadow — Live Scan Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{--gold:#d4af37;--gold-soft:#f1d77a;--gold-dim:rgba(212,175,55,0.15);--gold-border:rgba(212,175,55,0.22);--bg:#08080b;--panel:#101014;--card-border:rgba(255,255,255,0.08);--text:rgba(234,230,242,0.9);--muted:rgba(234,230,242,0.48)}
-html,body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;min-height:100vh;scrollbar-width:none;-ms-overflow-style:none}
-html::-webkit-scrollbar,body::-webkit-scrollbar{display:none}
-.wrap{max-width:820px;margin:0 auto;padding:52px 20px 72px}
-.eyebrow{font-size:10px;font-weight:700;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;text-align:center;margin-bottom:16px}
-.headline{font-family:"DM Serif Display",serif;font-size:clamp(26px,5vw,42px);text-align:center;color:#fff;margin-bottom:10px;line-height:1.15}
-.headline span{color:var(--gold)}
-.sub{font-size:13.5px;color:var(--muted);text-align:center;margin-bottom:40px;line-height:1.7;max-width:460px;margin-left:auto;margin-right:auto}
-.main-tabs{display:flex;gap:4px;justify-content:center;margin-bottom:24px;background:rgba(255,255,255,0.03);border:1px solid var(--card-border);border-radius:999px;padding:4px;width:fit-content;margin-left:auto;margin-right:auto}
-.mtab{padding:9px 22px;border-radius:999px;border:none;background:transparent;color:rgba(255,255,255,0.38);font-family:"DM Sans",sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .22s;display:flex;align-items:center;gap:8px;white-space:nowrap}
-.mtab svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
-.mtab.active{background:linear-gradient(160deg,#d4af37,#b8962e);color:#000;font-weight:600}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#07070a; --panel:#0d0d12; --panel2:#131319;
+  --gold:#d4af37; --gold-soft:#f1d77a; --gold-dim:rgba(212,175,55,0.13); --gold-border:rgba(212,175,55,0.28);
+  --danger:#ff7a7a; --danger-dim:rgba(255,122,122,0.1); --danger-border:rgba(255,122,122,0.24);
+  --text:rgba(234,230,242,0.94); --muted:rgba(234,230,242,0.52); --muted2:rgba(234,230,242,0.3);
+  --border:rgba(255,255,255,0.08); --mono:'IBM Plex Mono',monospace;
+}
+html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
+.wrap{max-width:640px;margin:0 auto;padding:44px 18px 60px}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;text-align:center;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px}
+.eyebrow .live-dot{width:6px;height:6px;border-radius:50%;background:var(--danger);box-shadow:0 0 0 0 rgba(255,122,122,.6);animation:pulse-dot 1.8s infinite}
+@keyframes pulse-dot{0%{box-shadow:0 0 0 0 rgba(255,122,122,.5)}70%{box-shadow:0 0 0 7px rgba(255,122,122,0)}100%{box-shadow:0 0 0 0 rgba(255,122,122,0)}}
+.headline{font-family:'DM Serif Display',serif;font-size:clamp(26px,6vw,38px);text-align:center;color:#fff;margin-bottom:10px;line-height:1.18}
+.headline em{font-style:normal;color:var(--gold)}
+.sub{font-size:13.5px;color:var(--muted);text-align:center;margin-bottom:26px;line-height:1.7;max-width:440px;margin-left:auto;margin-right:auto}
+.main-tabs{display:flex;gap:4px;justify-content:center;margin-bottom:14px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:999px;padding:4px;width:fit-content;margin-left:auto;margin-right:auto}
+.mtab{padding:9px 20px;border-radius:999px;border:none;background:transparent;color:rgba(255,255,255,0.4);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:7px;white-space:nowrap}
+.mtab svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.mtab.active{background:linear-gradient(160deg,var(--gold),#b8962e);color:#000}
 .mtab.active svg{stroke:#000}
-.sub-tabs{display:flex;gap:6px;justify-content:center;margin-bottom:24px;flex-wrap:wrap}
-.stab{padding:7px 16px;border-radius:999px;border:1px solid rgba(255,255,255,0.1);background:transparent;color:rgba(255,255,255,0.35);font-family:"DM Sans",sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap}
-.stab.sc{border-color:rgba(72,199,142,0.4);color:#48c78e;background:rgba(72,199,142,0.07)}
-.stab.s2{border-color:rgba(212,175,55,0.3);color:rgba(212,175,55,0.55);background:rgba(212,175,55,0.06)}
-.stab.s9{border-color:var(--gold-border);color:var(--gold);background:var(--gold-dim)}
-.mpanel{display:none}.mpanel.active{display:block}
-.spanel{display:none}.spanel.active{display:block}
-.viewer{position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,0.09);background:linear-gradient(180deg,#131318,#050507);box-shadow:0 18px 54px rgba(0,0,0,0.42),0 0 0 1px rgba(212,175,55,0.04)}
-.viewer:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 0,rgba(212,175,55,0.11),transparent 38%);pointer-events:none;z-index:1}
-.img-frame{width:100%;aspect-ratio:3/4;position:relative;overflow:hidden;background:#0d0d10;touch-action:pan-y}
-@media(orientation:landscape) and (max-width:900px){.img-frame{aspect-ratio:unset;height:auto;overflow:visible}.img-frame img{display:none;position:relative;width:100%;height:auto;object-fit:unset}.img-frame img.visible{display:block}}
-.img-frame img{width:100%;height:100%;object-fit:contain;position:absolute;inset:0;opacity:0;transition:opacity .4s ease;display:block;pointer-events:none;cursor:default;filter:drop-shadow(0 18px 30px rgba(0,0,0,0.32))}
-.img-frame img.visible{opacity:1;pointer-events:auto;cursor:zoom-in;z-index:2}
-.nav-btn{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;background:rgba(8,8,11,0.82);border:1px solid rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;transition:opacity .35s,border-color .2s;opacity:0.5}
-.nav-btn:hover{border-color:rgba(212,175,55,0.45);opacity:1!important}
-.nav-btn svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-.nav-prev{left:14px}.nav-next{right:14px}
-.vfooter{position:relative;z-index:2;padding:13px 18px;display:flex;align-items:center;gap:8px;border-top:1px solid rgba(255,255,255,0.06);background:rgba(0,0,0,0.42);backdrop-filter:blur(12px)}
-.vhint{font-size:10.5px;color:rgba(234,230,242,0.4);letter-spacing:.01em}
-.vcap{font-size:10.5px;color:var(--muted);font-weight:500;text-align:center;flex:1}
-.dots{display:flex;gap:5px;align-items:center}
-.dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.18);transition:all .28s;cursor:pointer}
-.dot.active{background:var(--gold);width:18px;border-radius:999px}
-.th{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
-.tl{font-size:12px;font-weight:600;color:#fff}
-.tb{font-size:10.5px;font-weight:700;padding:3px 12px;border-radius:999px}
-.tc{background:rgba(72,199,142,0.1);color:#48c78e;border:1px solid rgba(72,199,142,0.25)}
-.t2{background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.45);border:1px solid rgba(255,255,255,0.1)}
-.t9{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border)}
-.td{font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6}
-.cs{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;gap:12px;border-radius:20px;border:1px dashed rgba(255,255,255,0.08);background:rgba(255,255,255,0.02)}
-.cs span{font-size:13px;color:var(--muted)}
-.gdiv{height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,0.3),transparent);margin:36px 0 28px}
-.cta-s{text-align:center}
-.cta-n{font-size:12px;color:rgba(234,230,242,0.28);margin-bottom:18px;line-height:1.8}
-.cta-b{display:inline-block;padding:14px 42px;border-radius:999px;background:linear-gradient(160deg,#f1d77a,#d4af37 48%,#a97f1d);color:#08080b;font-size:14.5px;font-weight:700;cursor:pointer;letter-spacing:.03em;font-family:"DM Sans",sans-serif;text-decoration:none;box-shadow:0 10px 30px rgba(212,175,55,0.22),inset 0 1px 0 rgba(255,255,255,0.35);transition:transform .2s ease,box-shadow .2s ease}
-.cta-b:hover{transform:translateY(-1px);box-shadow:0 14px 38px rgba(212,175,55,0.3),inset 0 1px 0 rgba(255,255,255,0.4)}
-@media(max-width:480px){.main-tabs{width:fit-content}.mtab{padding:8px 14px;font-size:12px}.mtab svg{width:12px;height:12px}}
-.lightbox{display:none;position:fixed;inset:0;background:rgba(3,3,5,0.94);z-index:9999;flex-direction:column;align-items:center;justify-content:center;cursor:default;overscroll-behavior:contain;touch-action:none}
-.lightbox.open{display:flex}
-.lightbox:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 12%,rgba(212,175,55,0.16),transparent 36%);pointer-events:none;z-index:0}
-.lightbox-panel{position:relative;z-index:1;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0}
-/* scroll container — lets browser handle pinch-zoom natively */
-.lightbox-stage{
-  flex:1;min-height:0;width:100%;
-  display:flex;align-items:center;justify-content:center;
-  overflow:auto;
-  /* native pinch-zoom — browser handles it perfectly */
-  touch-action:pan-x pan-y pinch-zoom;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:none;-ms-overflow-style:none;
+.tier-toggle{display:flex;gap:4px;justify-content:center;margin-bottom:22px;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:999px;padding:3px;width:fit-content;margin-left:auto;margin-right:auto}
+.ttab{padding:7px 16px;border-radius:999px;border:none;background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:700;cursor:pointer;transition:all .22s}
+.ttab.active{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border)}
+.stage{position:relative;background:var(--panel);border:1px solid var(--border);border-radius:22px;padding:28px 22px 24px;min-height:380px;overflow:hidden}
+.stage::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(212,175,55,0.06),transparent 60%);pointer-events:none}
+.panel{display:none}
+.panel.active{display:block}
+.console{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:330px;text-align:center;transition:opacity .35s ease}
+.icon-orb{position:relative;width:104px;height:104px;border-radius:50%;background:var(--panel2);border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;margin-bottom:22px}
+.icon-orb svg{width:38px;height:38px;stroke:var(--gold);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;position:relative;z-index:2}
+.ring{position:absolute;inset:0;border-radius:50%;border:1px solid var(--gold-border);animation:ring-pulse 2.2s ease-out infinite}
+.ring.r2{animation-delay:.7s}
+.ring.r3{animation-delay:1.4s}
+@keyframes ring-pulse{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.55);opacity:0}}
+.scanline{position:absolute;left:6px;right:6px;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,var(--gold-soft),transparent);top:8%;filter:drop-shadow(0 0 6px var(--gold));animation:scan-move 1.6s ease-in-out infinite}
+@keyframes scan-move{0%,100%{top:10%}50%{top:82%}}
+.scan-status{font-size:13.5px;font-weight:600;color:#fff;margin-bottom:14px;min-height:18px}
+.progress-track{width:220px;height:4px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden;margin-bottom:16px}
+.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold-soft));border-radius:99px;transition:width .28s linear}
+.scan-log{font-family:var(--mono);font-size:11px;color:var(--muted2);min-height:16px;opacity:0;transition:opacity .25s ease}
+.scan-log.show{opacity:1}
+.report{opacity:0;transform:translateY(10px);transition:opacity .4s ease, transform .4s ease}
+.report.show{opacity:1;transform:translateY(0)}
+.report-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:10px}
+.badges{display:flex;gap:7px;flex-wrap:wrap}
+.badge{font-size:10.5px;font-weight:700;padding:4px 11px;border-radius:999px;letter-spacing:.02em}
+.badge.tier{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border)}
+.badge.count{background:var(--danger-dim);color:var(--danger);border:1px solid var(--danger-border)}
+.replay-btn{background:none;border:1px solid var(--border);color:var(--muted);font-size:11px;font-weight:600;padding:6px 12px;border-radius:999px;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .2s;font-family:'DM Sans',sans-serif}
+.replay-btn:hover{border-color:var(--gold-border);color:var(--gold)}
+.replay-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2}
+.identity-row{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:13px 15px;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.identity-icon{width:34px;height:34px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.identity-icon svg{width:16px;height:16px;stroke:var(--gold);fill:none;stroke-width:1.8}
+.identity-text{flex:1}
+.identity-label{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);margin-bottom:2px}
+.identity-value{font-family:var(--mono);font-size:14px;color:#fff;filter:blur(5px);transition:filter .6s ease .1s}
+.identity-value.reveal{filter:blur(0)}
+.identity-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#2a2a33,#1a1a20);display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--border)}
+.identity-avatar svg{width:18px;height:18px;stroke:var(--muted);fill:none;stroke-width:1.6}
+.leak-list{display:flex;flex-direction:column;gap:9px}
+.leak-row{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start;opacity:0;transform:translateX(-8px);transition:opacity .4s ease, transform .4s ease}
+.leak-row.show{opacity:1;transform:translateX(0)}
+.leak-row.tier998-only{display:none}
+.leak-logo{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;font-weight:700;font-size:13px;font-family:'DM Sans',sans-serif}
+.leak-logo svg{width:17px;height:17px}
+.leak-logo.generic{background:var(--panel);border:1px solid var(--border)}
+.leak-logo.generic svg{stroke:var(--muted);fill:none;stroke-width:1.8}
+.leak-body{flex:1;min-width:0}
+.leak-source{font-size:12.5px;font-weight:700;color:#fff;margin-bottom:3px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.leak-tag{font-size:9px;font-weight:700;padding:2px 7px;border-radius:999px;text-transform:uppercase;letter-spacing:.04em}
+.leak-tag.high{background:var(--danger-dim);color:var(--danger);border:1px solid var(--danger-border)}
+.leak-tag.med{background:rgba(240,183,47,0.1);color:#f0b72f;border:1px solid rgba(240,183,47,0.24)}
+.leak-tag.deep{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-border)}
+.leak-desc{font-size:11.5px;color:var(--muted);line-height:1.6}
+.leak-link{display:none;font-family:var(--mono);font-size:10.5px;color:#6cb6ff;margin-top:6px;word-break:break-all}
+.tier-998 .leak-link{display:block}
+.loc-place.tier998-only,.loc-address.tier998-only,.loc-coords.tier998-only{display:none}
+.tier298-only{display:block}
+.tier-998 .tier298-only{display:none}
+.tier-998 .leak-row.tier998-only{display:flex}
+.tier-998 .loc-card.tier998-only{display:block}
+.tier-998 .loc-place.tier998-only,.tier-998 .loc-address.tier998-only,.tier-998 .loc-coords.tier998-only{display:block}
+.loc-card{background:var(--panel2);border:1px solid var(--border);border-radius:12px;overflow:hidden;opacity:0;transform:translateX(-8px);transition:opacity .4s ease, transform .4s ease}
+.loc-card.show{opacity:1;transform:translateX(0)}
+.loc-card.tier998-only{display:none}
+.loc-map{width:100%;height:110px;object-fit:cover;display:block;background:var(--panel)}
+.loc-body{padding:11px 14px}
+.loc-meta{display:flex;align-items:center;gap:7px;margin-bottom:5px;flex-wrap:wrap}
+.loc-platform{font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+.loc-date{font-size:10.5px;color:var(--muted2)}
+.loc-dot{width:3px;height:3px;border-radius:50%;background:var(--border)}
+.loc-place{font-size:12.5px;font-weight:700;color:#fff;margin-bottom:2px}
+.loc-address{font-size:11.5px;color:var(--muted);line-height:1.5;margin-bottom:4px}
+.loc-coords{font-family:var(--mono);font-size:10.5px;color:var(--muted2)}
+.lock-hint{display:flex;align-items:center;gap:8px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:10px;padding:10px 13px;font-size:11px;color:var(--gold-soft);margin-top:10px;line-height:1.5}
+.tier-998 .lock-hint{display:none}
+.stage-caption{text-align:center;font-size:11px;color:var(--muted2);margin-top:16px}
+.cta-s{text-align:center;margin-top:38px}
+.cta-h{font-family:'DM Serif Display',serif;font-size:19px;color:#fff;margin-bottom:8px}
+.cta-n{font-size:12.5px;color:var(--muted);margin-bottom:20px;line-height:1.7;max-width:380px;margin-left:auto;margin-right:auto}
+.cta-b{display:inline-block;padding:14px 38px;border-radius:999px;background:linear-gradient(160deg,var(--gold),#b8962e);color:#000;font-size:14.5px;font-weight:700;cursor:pointer;letter-spacing:.02em;font-family:'DM Sans',sans-serif;text-decoration:none;box-shadow:0 4px 24px rgba(212,175,55,0.22);transition:transform .2s ease}
+.cta-b:hover{transform:translateY(-1px)}
+.cta-note{font-size:10.5px;color:var(--muted2);margin-top:12px}
+@media(max-width:420px){
+  .wrap{padding:32px 14px 48px}
+  .mtab{padding:8px 15px;font-size:12px}
+  .stage{padding:22px 15px 20px}
+  .badges{flex-wrap:wrap}
 }
-.lightbox-stage::-webkit-scrollbar{display:none}
-.lightbox-stage-inner{
-  /* padding gives room to scroll/pan when zoomed */
-  padding:env(safe-area-inset-top,18px) 14px env(safe-area-inset-bottom,18px);
-  display:flex;align-items:center;justify-content:center;
-  min-width:100%;min-height:100%;
-  box-sizing:border-box;
-  /* Safari: ensure inner fills stage height */
-  height:100%;
-}
-.lightbox img{
-  display:block;
-  /* fit inside viewport by default */
-  max-width:min(100%,760px);
-  max-height:calc(100dvh - 110px);
-  max-height:calc(-webkit-fill-available - 110px);
-  width:auto;height:auto;
-  object-fit:contain;
-  border-radius:12px;
-  box-shadow:0 26px 80px rgba(0,0,0,0.58),0 0 0 1px rgba(255,255,255,0.1);
-  background:#0b0b0f;
-  /* Safari centering fix: margin:auto inside flex container */
-  margin:auto;
-  /* dismiss drag transform applied by JS */
-  transform:translate3d(0,0,0);
-  transition:transform .18s ease;
-  will-change:transform;
-  pointer-events:none;
-  user-select:none;-webkit-user-select:none;
-}
-.lightbox-bar{
-  flex-shrink:0;
-  width:100%;display:flex;align-items:center;justify-content:center;gap:12px;
-  color:rgba(234,230,242,0.5);font-size:11px;font-weight:600;letter-spacing:.02em;
-  height:44px;padding-bottom:env(safe-area-inset-bottom,0px);
-  z-index:2;
-}
-.lightbox-close{position:fixed;top:calc(14px + env(safe-area-inset-top));right:14px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.11);border:1px solid rgba(255,255,255,0.18);color:#fff;font-family:"DM Sans",sans-serif;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;z-index:10;backdrop-filter:blur(10px);transition:background .2s,border-color .2s,transform .2s}
-.lightbox-close:hover{background:rgba(212,175,55,0.18);border-color:rgba(212,175,55,0.4);transform:scale(1.04)}
-@media(max-width:620px){.wrap{padding:38px 14px 56px}.sub{margin-bottom:30px}.viewer{border-radius:16px}.nav-btn{width:34px;height:34px}.nav-prev{left:10px}.nav-next{right:10px}.vfooter{padding:12px 13px}.lightbox img{border-radius:10px;max-height:calc(100dvh - 100px)}.lightbox-bar{font-size:10.5px;height:40px}}
 </style>
 </head>
 <body>
-<div class="wrap">
-<div class="eyebrow">Real Scan &middot; Real Data</div>
-<h1 class="headline">This is what your<br><span>report looks like.</span></h1>
-<p class="sub">Actual screenshots from a test scan. Tap the tabs below to explore what your report looks like &mdash; and tap any image to zoom in.</p>
+<div class="wrap" id="wrap">
+  <div class="eyebrow"><span class="live-dot"></span>Live Scan · Real Report Logic</div>
+  <h1 class="headline">Watch us find what's<br><em>already exposed.</em></h1>
+  <p class="sub">Tap a tab to run a sample scan and see exactly where your info can turn up — in plain English.</p>
 
-<div class="main-tabs">
-  <button class="mtab active" onclick="switchM('photo',this)"><svg viewBox="0 0 24 24"><path d="M14.5 4H9.5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/></svg>Photo</button>
-  <button class="mtab" onclick="switchM('email',this)"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><polyline points="2,5 12,13 22,5"/></svg>Email</button>
-  <button class="mtab" onclick="switchM('phone',this)"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="3"/><circle cx="12" cy="17.5" r="1" fill="currentColor" stroke="none"/></svg>Phone</button>
-</div>
+  <div class="main-tabs">
+    <button class="mtab active" data-tab="phone" onclick="switchTab('phone')">
+      <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="3"/><circle cx="12" cy="17.5" r="1" fill="currentColor" stroke="none"/></svg>Phone
+    </button>
+    <button class="mtab" data-tab="email" onclick="switchTab('email')">
+      <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><polyline points="2,5 12,13 22,5"/></svg>Email
+    </button>
+    <button class="mtab" data-tab="photo" onclick="switchTab('photo')">
+      <svg viewBox="0 0 24 24"><path d="M14.5 4H9.5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/></svg>Photo
+    </button>
+  </div>
 
-<!-- PHONE -->
-<div class="mpanel" id="phone">
-  <div class="sub-tabs">
-    <button class="stab sc" onclick="switchS('phone','c',this)">&#10003; All Clear</button>
-    <button class="stab" onclick="switchS('phone','2',this)">&#8377;298 Leaks</button>
-    <button class="stab" onclick="switchS('phone','9',this)">&#8377;998 Deep Dive</button>
+  <div class="tier-toggle">
+    <button class="ttab active" data-tier="298" onclick="setTier('298')">₹298 Leaks</button>
+    <button class="ttab" data-tier="998" onclick="setTier('998')">₹998 Deep Dive</button>
   </div>
-  <div class="spanel active" id="phone-c">
-    <div class="th"><span class="tl">All Clear</span><span class="tb tc">&#10003; No Leaks Found</span></div>
-    <div class="td">Your phone number was checked across breach databases and platforms. No leaks or exposures were found.</div>
-    <div class="viewer">
-      <div class="img-frame" id="f-phone-c">
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/phone-allclear/1.png" class="visible" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/phone-allclear/2.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/phone-allclear/3.png" alt=""/>
-      </div>
-      <button class="nav-btn nav-prev" id="prev-phone-c" onclick="step('phone-c',-1)"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg></button>
-      <button class="nav-btn nav-next" id="next-phone-c" onclick="step('phone-c',1)"><svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg></button>
-      <div class="vfooter"><span class="vcap" id="cap-phone-c">Scan summary </span><div class="dots" id="dots-phone-c">
-          <div class="dot active" onclick="goTo('phone-c',0)"></div>
-          <div class="dot" onclick="goTo('phone-c',1)"></div>
-          <div class="dot" onclick="goTo('phone-c',2)"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="spanel" id="phone-2">
-    <div class="th"><span class="tl">Privacy Scan</span><span class="tb t2">&#8377;298</span></div>
-    <div class="td">Where your phone number appears online &mdash; platforms, breaches, and your digital footprint.</div>
-    <div class="viewer">
-      <div class="img-frame" id="f-phone-2">
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/phone-298/1.png" class="visible" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/phone-298/2.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/phone-298/3.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/phone-298/4.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/phone-298/5.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/phone-298/6.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/phone-298/7.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/phone-298/8.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/phone-298/9.png" alt=""/>
-      </div>
-      <button class="nav-btn nav-prev" id="prev-phone-2" onclick="step('phone-2',-1)"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg></button>
-      <button class="nav-btn nav-next" id="next-phone-2" onclick="step('phone-2',1)"><svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg></button>
-      <div class="vfooter">
-        <span class="vcap" id="cap-phone-2">Our finding</span>
-        <div class="dots" id="dots-phone-2">
-          <div class="dot active" onclick="goTo('phone-2',0)"></div>
-          <div class="dot" onclick="goTo('phone-2',1)"></div>
-          <div class="dot" onclick="goTo('phone-2',2)"></div>
-          <div class="dot" onclick="goTo('phone-2',3)"></div>
-          <div class="dot" onclick="goTo('phone-2',4)"></div>
-          <div class="dot" onclick="goTo('phone-2',5)"></div>
-          <div class="dot" onclick="goTo('phone-2',6)"></div>
-          <div class="dot" onclick="goTo('phone-2',7)"></div>
-          <div class="dot" onclick="goTo('phone-2',8)"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="spanel" id="phone-9">
-    <div class="th"><span class="tl">Deep Dive</span><span class="tb t9">&#8377;998</span></div>
-    <div class="td">Everything in Privacy Scan &mdash; plus exact source links, identity risk assessment, and removal guidance.</div>
-    <div class="viewer">
-      <div class="img-frame" id="f-phone-9">
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/phone-998/1.png" class="visible" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/phone-998/2.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/phone-998/3.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/phone-998/4.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/phone-998/5.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/phone-998/6.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/phone-998/7.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/phone-998/8.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/phone-998/9.png" alt=""/>
-      </div>
-      <button class="nav-btn nav-prev" id="prev-phone-9" onclick="step('phone-9',-1)"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg></button>
-      <button class="nav-btn nav-next" id="next-phone-9" onclick="step('phone-9',1)"><svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg></button>
-      <div class="vfooter"><span class="vcap" id="cap-phone-9">Our finding </span><div class="dots" id="dots-phone-9">
-          <div class="dot active" onclick="goTo('phone-9',0)"></div>
-          <div class="dot" onclick="goTo('phone-9',1)"></div>
-          <div class="dot" onclick="goTo('phone-9',2)"></div>
-          <div class="dot" onclick="goTo('phone-9',3)"></div>
-          <div class="dot" onclick="goTo('phone-9',4)"></div>
-          <div class="dot" onclick="goTo('phone-9',5)"></div>
-          <div class="dot" onclick="goTo('phone-9',6)"></div>
-          <div class="dot" onclick="goTo('phone-9',7)"></div>
-          <div class="dot" onclick="goTo('phone-9',8)"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- EMAIL -->
-<div class="mpanel" id="email">
-  <div class="sub-tabs">
-    <button class="stab sc" onclick="switchS('email','c',this)">&#10003; All Clear</button>
-    <button class="stab" onclick="switchS('email','2',this)">&#8377;298 Leaks</button>
-    <button class="stab" onclick="switchS('email','9',this)">&#8377;998 Deep Dive</button>
-  </div>
-  <div class="spanel active" id="email-c">
-    <div class="th"><span class="tl">All Clear</span><span class="tb tc">&#10003; No Leaks Found</span></div>
-    <div class="td">Your email was checked across breach databases and platforms. No leaks or exposures were found.</div>
-    <div class="viewer">
-      <div class="img-frame" id="f-email-c">
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-allclear/1.png" class="visible" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-allclear/2.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-allclear/3.png" alt=""/>
-      </div>
-      <button class="nav-btn nav-prev" id="prev-email-c" onclick="step('email-c',-1)"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg></button>
-      <button class="nav-btn nav-next" id="next-email-c" onclick="step('email-c',1)"><svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg></button>
-      <div class="vfooter"><span class="vcap" id="cap-email-c">Scan summary </span><div class="dots" id="dots-email-c">
-          <div class="dot active" onclick="goTo('email-c',0)"></div>
-          <div class="dot" onclick="goTo('email-c',1)"></div>
-          <div class="dot" onclick="goTo('email-c',2)"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="spanel" id="email-2">
-    <div class="th"><span class="tl">Privacy Scan</span><span class="tb t2">&#8377;298</span></div>
-    <div class="td">Where your email appears online &mdash; breaches, platforms, and your digital footprint.</div>
-    <div class="viewer">
-      <div class="img-frame" id="f-email-2">
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-298/1.png" class="visible" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-298/2.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-298/3.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-298/4.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-298/5.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-298/6.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-298/7.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-298/8.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-298/9.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-298/10.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-298/11.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-298/12.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-298/13.png" alt=""/>
-      </div>
-      <button class="nav-btn nav-prev" id="prev-email-2" onclick="step('email-2',-1)"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg></button>
-      <button class="nav-btn nav-next" id="next-email-2" onclick="step('email-2',1)"><svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg></button>
-      <div class="vfooter">
-        <span class="vcap" id="cap-email-2">Our finding</span>
-        <div class="dots" id="dots-email-2">
-          <div class="dot active" onclick="goTo('email-2',0)"></div>
-          <div class="dot" onclick="goTo('email-2',1)"></div>
-          <div class="dot" onclick="goTo('email-2',2)"></div>
-          <div class="dot" onclick="goTo('email-2',3)"></div>
-          <div class="dot" onclick="goTo('email-2',4)"></div>
-          <div class="dot" onclick="goTo('email-2',5)"></div>
-          <div class="dot" onclick="goTo('email-2',6)"></div>
-          <div class="dot" onclick="goTo('email-2',7)"></div>
-          <div class="dot" onclick="goTo('email-2',8)"></div>
-          <div class="dot" onclick="goTo('email-2',9)"></div>
-          <div class="dot" onclick="goTo('email-2',10)"></div>
-          <div class="dot" onclick="goTo('email-2',11)"></div>
-          <div class="dot" onclick="goTo('email-2',12)"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="spanel" id="email-9">
-    <div class="th"><span class="tl">Deep Dive</span><span class="tb t9">&#8377;998</span></div>
-    <div class="td">Everything in Privacy Scan &mdash; plus exact breach sources, exposure history, and full removal guidance.</div>
-    <div class="viewer">
-      <div class="img-frame" id="f-email-9">
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-998/1.png" class="visible" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-998/2.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-998/3.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-998/4.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-998/5.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-998/6.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-998/7.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-998/8.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-998/9.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-998/10.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-998/11.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/email-998/12.png" alt=""/>
-      </div>
-      <button class="nav-btn nav-prev" id="prev-email-9" onclick="step('email-9',-1)"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg></button>
-      <button class="nav-btn nav-next" id="next-email-9" onclick="step('email-9',1)"><svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg></button>
-      <div class="vfooter"><span class="vcap" id="cap-email-9">Our finding </span><div class="dots" id="dots-email-9">
-          <div class="dot active" onclick="goTo('email-9',0)"></div>
-          <div class="dot" onclick="goTo('email-9',1)"></div>
-          <div class="dot" onclick="goTo('email-9',2)"></div>
-          <div class="dot" onclick="goTo('email-9',3)"></div>
-          <div class="dot" onclick="goTo('email-9',4)"></div>
-          <div class="dot" onclick="goTo('email-9',5)"></div>
-          <div class="dot" onclick="goTo('email-9',6)"></div>
-          <div class="dot" onclick="goTo('email-9',7)"></div>
-          <div class="dot" onclick="goTo('email-9',8)"></div>
-          <div class="dot" onclick="goTo('email-9',9)"></div>
-          <div class="dot" onclick="goTo('email-9',10)"></div>
-          <div class="dot" onclick="goTo('email-9',11)"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+  <div class="stage" id="stage">
 
-<!-- PHOTO -->
-<div class="mpanel active" id="photo">
-  <div class="sub-tabs">
-    <button class="stab sc" onclick="switchS('photo','c',this)">&#10003; All Clear</button>
-    <button class="stab" onclick="switchS('photo','2',this)">&#8377;298 Leaks</button>
-    <button class="stab" onclick="switchS('photo','9',this)">&#8377;998 Deep Dive</button>
-  </div>
-  <div class="spanel active" id="photo-c">
-    <div class="th"><span class="tl">All Clear</span><span class="tb tc">&#10003; No Matches Found</span></div>
-    <div class="td">Your photo was checked across the web. No matches or reverse image results were found.</div>
-    <div class="viewer">
-      <div class="img-frame" id="f-photo-c">
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/photo-allclear/1.png" class="visible" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/photo-allclear/2.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/photo-allclear/3.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/photo-allclear/4.png" alt=""/>
-      </div>
-      <button class="nav-btn nav-prev" id="prev-photo-c" onclick="step('photo-c',-1)"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg></button>
-      <button class="nav-btn nav-next" id="next-photo-c" onclick="step('photo-c',1)"><svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg></button>
-      <div class="vfooter"><span class="vcap" id="cap-photo-c">Scan summary </span><div class="dots" id="dots-photo-c">
-          <div class="dot active" onclick="goTo('photo-c',0)"></div>
-          <div class="dot" onclick="goTo('photo-c',1)"></div>
-          <div class="dot" onclick="goTo('photo-c',2)"></div>
-          <div class="dot" onclick="goTo('photo-c',3)"></div>
+    <!-- PHONE -->
+    <div class="panel active" id="panel-phone">
+      <div class="console" id="console-phone">
+        <div class="icon-orb">
+          <div class="ring"></div><div class="ring r2"></div><div class="ring r3"></div>
+          <div class="scanline"></div>
+          <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="3"/><circle cx="12" cy="17.5" r="1" fill="currentColor" stroke="none"/></svg>
         </div>
+        <div class="scan-status">Scanning breach databases…</div>
+        <div class="progress-track"><div class="progress-fill" id="fill-phone"></div></div>
+        <div class="scan-log" id="log-phone">Initializing…</div>
       </div>
-    </div>
-  </div>
-  <div class="spanel" id="photo-2">
-    <div class="th"><span class="tl">Privacy Scan</span><span class="tb t2">&#8377;298</span></div>
-    <div class="td">Where your photo appears online &mdash; reverse image matches across the web.</div>
-    <div class="viewer">
-      <div class="img-frame" id="f-photo-2">
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/photo-298/1.png" class="visible" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/photo-298/2.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/photo-298/3.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/photo-298/4.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/photo-298/5.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/photo-298/6.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/photo-298/7.png" alt=""/>
-      </div>
-      <button class="nav-btn nav-prev" id="prev-photo-2" onclick="step('photo-2',-1)"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg></button>
-      <button class="nav-btn nav-next" id="next-photo-2" onclick="step('photo-2',1)"><svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg></button>
-      <div class="vfooter"><span class="vcap" id="cap-photo-2">Match summary </span><div class="dots" id="dots-photo-2">
-          <div class="dot active" onclick="goTo('photo-2',0)"></div>
-          <div class="dot" onclick="goTo('photo-2',1)"></div>
-          <div class="dot" onclick="goTo('photo-2',2)"></div>
-          <div class="dot" onclick="goTo('photo-2',3)"></div>
-          <div class="dot" onclick="goTo('photo-2',4)"></div>
-          <div class="dot" onclick="goTo('photo-2',5)"></div>
-          <div class="dot" onclick="goTo('photo-2',6)"></div>
+      <div class="report" id="report-phone">
+        <div class="report-top">
+          <div class="badges"><span class="badge tier" id="tierbadge-phone">₹298 Privacy Scan</span><span class="badge count" id="countbadge-phone">⚠ 5 Leaks Found</span></div>
+          <button class="replay-btn" onclick="runScan('phone')"><svg viewBox="0 0 24 24"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.5 9a9 9 0 0114.5-3.5L23 10M1 14l5 4.5A9 9 0 0020.5 15"/></svg>Replay</button>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="spanel" id="photo-9">
-    <div class="th"><span class="tl">Deep Dive</span><span class="tb t9">&#8377;998</span></div>
-    <div class="td">Everything in Privacy Scan &mdash; plus exact URLs, takedown guidance, and identity risk assessment.</div>
-    <div class="viewer">
-      <div class="img-frame" id="f-photo-9">
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/photo-998/1.png" class="visible" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/photo-998/2.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/photo-998/3.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/photo-998/4.png" alt=""/>
-        <img src="https://raw.githubusercontent.com/scanmyshadow/report-gallery/main/assets/photo-998/5.png" alt=""/>
-      </div>
-      <button class="nav-btn nav-prev" id="prev-photo-9" onclick="step('photo-9',-1)"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg></button>
-      <button class="nav-btn nav-next" id="next-photo-9" onclick="step('photo-9',1)"><svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg></button>
-      <div class="vfooter"><span class="vcap" id="cap-photo-9">Full match detail </span><div class="dots" id="dots-photo-9">
-          <div class="dot active" onclick="goTo('photo-9',0)"></div>
-          <div class="dot" onclick="goTo('photo-9',1)"></div>
-          <div class="dot" onclick="goTo('photo-9',2)"></div>
-          <div class="dot" onclick="goTo('photo-9',3)"></div>
-          <div class="dot" onclick="goTo('photo-9',4)"></div>
+        <div class="identity-row">
+          <div class="identity-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="3"/><circle cx="12" cy="17.5" r="1" fill="currentColor" stroke="none"/></svg></div>
+          <div class="identity-text">
+            <div class="identity-label">Phone Scanned</div>
+            <div class="identity-value" id="idval-phone">+91 •••••• 4821</div>
+          </div>
         </div>
+        <div class="leak-list" id="leaklist-phone">
+          <div class="leak-row">
+            <div class="leak-logo" style="background:#0087FF">T</div>
+            <div class="leak-body"><div class="leak-source">Truecaller</div><div class="leak-desc">Anyone who searches this number can instantly see your full name and city — no app or account needed.</div><div class="leak-link">↗ truecaller.com/search/+91-XXXXXX4821</div></div>
+          </div>
+          <div class="leak-row">
+            <div class="leak-logo" style="background:#25D366"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.6 21.5 10.3 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg></div>
+            <div class="leak-body"><div class="leak-source">WhatsApp <span class="leak-tag high">Active</span></div><div class="leak-desc">This number has a live WhatsApp profile. Its last-seen time and the exact date the profile photo was last changed are both visible to strangers.</div><div class="leak-link">↗ wa.me/91XXXXXX4821</div></div>
+          </div>
+          <div class="leak-row">
+            <div class="leak-logo" style="background:#E31837">D</div>
+            <div class="leak-body"><div class="leak-source">Domino's India <span class="leak-tag high">2021 Breach</span></div><div class="leak-desc">This number was part of a major food-delivery data breach — your past delivery address may have leaked along with it.</div><div class="leak-link">↗ breachvault.io/records/dominos-india-2021</div></div>
+          </div>
+          <div class="leak-row">
+            <div class="leak-logo" style="background:#fff;color:#4285F4;border:1px solid var(--border)">G</div>
+            <div class="leak-body"><div class="leak-source">Google Search</div><div class="leak-desc">Typing this number into Google brings up results linked to your name.</div><div class="leak-link">↗ google.com/search?q=%22+91XXXXXX4821%22</div></div>
+          </div>
+          <div class="leak-row">
+            <div class="leak-logo generic"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+            <div class="leak-body"><div class="leak-source">Account Hint Found</div><div class="leak-desc">A masked email — <strong style="color:#fff">s•••h@g••••.com</strong> — is linked to this number. That's enough for someone to guess your real email and target it.</div></div>
+          </div>
+          <div class="leak-row tier998-only">
+            <div class="leak-logo generic"><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg></div>
+            <div class="leak-body"><div class="leak-source">Data Broker Registry <span class="leak-tag deep">Deep Dive</span></div><div class="leak-desc">A background-check style listing was found with your full home address, plus a family member's name linked to this number.</div><div class="leak-link">↗ exact registry link included in your Deep Dive PDF</div></div>
+          </div>
+        </div>
+        <div class="lock-hint">🔒 Exact source links + 1 more finding unlocked in ₹998 Deep Dive</div>
       </div>
     </div>
+
+    <!-- EMAIL -->
+    <div class="panel" id="panel-email">
+      <div class="console" id="console-email">
+        <div class="icon-orb">
+          <div class="ring"></div><div class="ring r2"></div><div class="ring r3"></div>
+          <div class="scanline"></div>
+          <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><polyline points="2,5 12,13 22,5"/></svg>
+        </div>
+        <div class="scan-status">Scanning breach databases…</div>
+        <div class="progress-track"><div class="progress-fill" id="fill-email"></div></div>
+        <div class="scan-log" id="log-email">Initializing…</div>
+      </div>
+      <div class="report" id="report-email">
+        <div class="report-top">
+          <div class="badges"><span class="badge tier" id="tierbadge-email">₹298 Privacy Scan</span><span class="badge count" id="countbadge-email">⚠ 4 Leaks Found</span></div>
+          <button class="replay-btn" onclick="runScan('email')"><svg viewBox="0 0 24 24"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.5 9a9 9 0 0114.5-3.5L23 10M1 14l5 4.5A9 9 0 0020.5 15"/></svg>Replay</button>
+        </div>
+        <div class="identity-row">
+          <div class="identity-icon"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><polyline points="2,5 12,13 22,5"/></svg></div>
+          <div class="identity-text">
+            <div class="identity-label">Email Scanned</div>
+            <div class="identity-value" id="idval-email">s••••••h@gmail.com</div>
+          </div>
+        </div>
+        <div class="leak-list" id="leaklist-email">
+          <div class="leak-row">
+            <div class="leak-logo" style="background:linear-gradient(135deg,#8B5CF6,#6D28D9)">C</div>
+            <div class="leak-body"><div class="leak-source">Canva <span class="leak-tag high">2019 Breach</span></div><div class="leak-desc">Canva was hacked in 2019. Your name and an old, locked password from that leak are still floating around online.</div><div class="leak-link">↗ breachvault.io/records/canva-2019</div></div>
+          </div>
+          <div class="leak-row">
+            <div class="leak-logo" style="background:#0A66C2">in</div>
+            <div class="leak-body"><div class="leak-source">LinkedIn <span class="leak-tag med">2021 Scrape</span></div><div class="leak-desc">Your full name, job title, and current company were pulled in the 2021 LinkedIn data scrape and are still being traded online.</div><div class="leak-link">↗ breachvault.io/records/linkedin-2021</div></div>
+          </div>
+          <div class="leak-row">
+            <div class="leak-logo generic"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6l8-4z"/></svg></div>
+            <div class="leak-body"><div class="leak-source">Data-Selling Website <span class="leak-tag high">For Sale</span></div><div class="leak-desc">Your email is listed for sale in a bundle alongside your phone number on a data-broker site.</div></div>
+          </div>
+          <div class="leak-row tier998-only">
+            <div class="leak-logo generic"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></div>
+            <div class="leak-body"><div class="leak-source">Password Pattern Warning <span class="leak-tag deep">Deep Dive</span></div><div class="leak-desc">The leaked Canva password follows a pattern people often reuse on other sites. Deep Dive shows you exactly what to check and change first.</div></div>
+          </div>
+        </div>
+        <div class="loc-card" id="loccard-email" style="margin-top:9px">
+          <img class="loc-map" src="https://maps.googleapis.com/maps/api/staticmap?center=30.123799,78.328862&zoom=13&size=600x220&maptype=roadmap&markers=color:0xd4af37%7C30.123799,78.328862&key=AIzaSyB5huWh_3tRUxtU06x1ijt122H03UOCD7E" alt="Map location" onerror="this.style.display='none'">
+          <div class="loc-body">
+            <div class="loc-meta"><span class="loc-platform">Google Maps</span><span class="loc-dot"></span><span class="loc-date">Oct 2025</span></div>
+            <div class="loc-place tier998-only">📍 A location tagged to this email</div>
+            <div class="loc-address tier998-only">Near Laxman Jhula, Rishikesh, Uttarakhand 249302, India</div>
+            <div class="loc-coords tier998-only">30.123799, 78.328862</div>
+            <div class="loc-place tier298-only">🔒 Exact place name hidden</div>
+            <div class="loc-address tier298-only">Unlock the address and GPS coordinates in the ₹998 Deep Dive</div>
+          </div>
+        </div>
+        <div class="loc-card tier998-only" id="loccard2-email" style="margin-top:9px">
+          <img class="loc-map" src="https://maps.googleapis.com/maps/api/staticmap?center=26.483190,74.566798&zoom=13&size=600x220&maptype=roadmap&markers=color:0xd4af37%7C26.483190,74.566798&key=AIzaSyB5huWh_3tRUxtU06x1ijt122H03UOCD7E" alt="Map location" onerror="this.style.display='none'">
+          <div class="loc-body">
+            <div class="loc-meta"><span class="loc-platform">Google Maps</span><span class="loc-dot"></span><span class="loc-date">Aug 2025</span><span class="leak-tag deep" style="margin-left:auto">Deep Dive</span></div>
+            <div class="loc-place">📍 A second location tagged to this email</div>
+            <div class="loc-address">Jamni Kund Road, Pushkar, Rajasthan 305022, India</div>
+            <div class="loc-coords">26.483190, 74.566798</div>
+          </div>
+        </div>
+        <div class="lock-hint">🔒 Exact source links + 1 more finding + a 2nd location unlocked in ₹998 Deep Dive</div>
+      </div>
+    </div>
+
+    <!-- PHOTO -->
+    <div class="panel" id="panel-photo">
+      <div class="console" id="console-photo">
+        <div class="icon-orb">
+          <div class="ring"></div><div class="ring r2"></div><div class="ring r3"></div>
+          <div class="scanline"></div>
+          <svg viewBox="0 0 24 24"><path d="M14.5 4H9.5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/></svg>
+        </div>
+        <div class="scan-status">Running reverse image search…</div>
+        <div class="progress-track"><div class="progress-fill" id="fill-photo"></div></div>
+        <div class="scan-log" id="log-photo">Initializing…</div>
+      </div>
+      <div class="report" id="report-photo">
+        <div class="report-top">
+          <div class="badges"><span class="badge tier" id="tierbadge-photo">₹298 Privacy Scan</span><span class="badge count" id="countbadge-photo">⚠ 5 Leaks Found</span></div>
+          <button class="replay-btn" onclick="runScan('photo')"><svg viewBox="0 0 24 24"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.5 9a9 9 0 0114.5-3.5L23 10M1 14l5 4.5A9 9 0 0020.5 15"/></svg>Replay</button>
+        </div>
+        <div class="identity-row">
+          <div class="identity-avatar"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></div>
+          <div class="identity-text">
+            <div class="identity-label">Photo Scanned</div>
+            <div class="identity-value" style="font-size:12.5px;filter:none;" id="idval-photo">Sample identity photo</div>
+          </div>
+        </div>
+        <div class="leak-list" id="leaklist-photo">
+          <div class="leak-row">
+            <div class="leak-logo" style="background:#C0155B"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 21s-7-4.6-9.5-8.8C.7 9 2 5.6 5 4.6c2-.7 4 .1 5.2 1.9C11.4 4.7 13.3 3.9 15.3 4.6c3 1 4.3 4.4 2.5 7.6C15.3 16.4 12 21 12 21z"/></svg></div>
+            <div class="leak-body"><div class="leak-source">Shaadi.com</div><div class="leak-desc">A matrimonial profile using this exact photo was found live on Shaadi.com.</div><div class="leak-link">↗ shaadi.com/profile/xxxxxxx</div></div>
+          </div>
+          <div class="leak-row">
+            <div class="leak-logo" style="background:#8B0000">BM</div>
+            <div class="leak-body"><div class="leak-source">BharatMatrimony <span class="leak-tag med">1 Profile</span></div><div class="leak-desc">Another matrimonial profile using this photo was found live on BharatMatrimony.</div><div class="leak-link">↗ bharatmatrimony.com/profile/xxxxxxx</div></div>
+          </div>
+          <div class="leak-row">
+            <div class="leak-logo" style="background:#7C3AED"><svg viewBox="0 0 24 24" fill="#fff"><path d="M4 7h3l1-2h8l1 2h3v12H4z"/><circle cx="12" cy="13" r="3" fill="#7C3AED" stroke="#fff" stroke-width="1.5"/></svg></div>
+            <div class="leak-body"><div class="leak-source">IndianModels <span class="leak-tag med">2 Profiles</span></div><div class="leak-desc">This photo — or one very close to it — was used to create 2 separate portfolio profiles on this site, without consent.</div><div class="leak-link">↗ indianmodels.in/profile/xxxxxx</div></div>
+          </div>
+          <div class="leak-row">
+            <div class="leak-logo" style="background:#fff;color:#4285F4;border:1px solid var(--border)">G</div>
+            <div class="leak-body"><div class="leak-source">Google Images</div><div class="leak-desc">Google has this photo indexed. Anyone can reverse-search it and find every other place it's been posted.</div><div class="leak-link">↗ images.google.com/searchbyimage</div></div>
+          </div>
+          <div class="leak-row">
+            <div class="leak-logo generic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg></div>
+            <div class="leak-body"><div class="leak-source">People-Search Website</div><div class="leak-desc">This photo appears next to your personal details on a site that sells people's information.</div></div>
+          </div>
+          <div class="leak-row tier998-only">
+            <div class="leak-logo generic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="leak-body"><div class="leak-source">Third Match — Forum Repost <span class="leak-tag deep">Deep Dive</span></div><div class="leak-desc">A third copy of this photo was found reposted in an unrelated public forum thread.</div><div class="leak-link">↗ exact thread link included in your Deep Dive PDF</div></div>
+          </div>
+        </div>
+        <div class="lock-hint">🔒 Exact source links + 1 more match unlocked in ₹998 Deep Dive</div>
+      </div>
+    </div>
+
   </div>
-</div>
+  <div class="stage-caption">Sample data shown for demonstration. Your report will reflect your actual scan.</div>
 
-
-</div>
-
-<div class="lightbox" id="lightbox" aria-hidden="true" tabindex="-1">
-  <button class="lightbox-close" type="button" aria-label="Close preview">&#x2715;</button>
-  <div class="lightbox-panel" role="dialog" aria-modal="true" aria-label="Report preview">
-    <div class="lightbox-stage" id="lightbox-stage">
-      <div class="lightbox-stage-inner">
-        <img id="lightbox-img" src="" alt="Expanded report page"/>
-      </div>
-    </div>
-    <div class="lightbox-bar" id="lightbox-bar">Swipe down to close &middot; swipe left or right for pages</div>
+  <div class="cta-s">
+    <div class="cta-h" id="cta-h">This is a live demo.</div>
+    <p class="cta-n" id="cta-n">Yours could look worse — and you won't know until you check. Real scans take under 5 minutes for phone &amp; email.</p>
+    <a class="cta-b" id="cta-b" href="https://scanmyshadow.com/#embed06" target="_top">Check My Data</a>
+    <div class="cta-note">No app · No login · Report deleted in 96 hours</div>
   </div>
 </div>
 
 <script>
-const state={};
-const caps={"photo-c":["Scan summary","Sources checked","Privacy tips","Next steps"],"photo-2":["Match summary","Sites your photo appears on","Risk rating","Privacy protection steps","Removal toolkit","Sources checked","Next steps"],"photo-9":["Full match detail","Exact source URLs","Takedown guidance","Identity risk assessment","Your privacy guide"],"phone-c":["Scan summary","Sources checked","Privacy tips"],"phone-2":["Our finding","Platforms found","Where number found","Data breaches","Digital timeline","Sources checked","Removal toolkit","Privacy guide","Next steps"],"phone-9":["Our finding","Digital shadow","Platforms found","Also on","Where number found","Data breaches","Digital timeline","Sources checked","Privacy guide"],"email-c":["Scan summary","Sources checked","Privacy tips"],"email-2":["Our finding","Digital shadow","Profile photos","Also on","Locations","Where email found","Data breaches","Digital timeline","Sources checked","Removal toolkit","Privacy guide","Next steps","Upsell"],"email-9":["Our finding","Digital shadow","Profile photos","Also on","Locations","Where email found","Data breaches","Digital timeline","Sources checked","Removal toolkit","Privacy guide","Next steps"]};
-const ft={};
-function showSlide(id,idx){const f=document.getElementById("f-"+id);if(!f)return;f.querySelectorAll("img").forEach((img,i)=>img.classList.toggle("visible",i===idx));const d=document.getElementById("dots-"+id);if(d)d.querySelectorAll(".dot").forEach((dot,i)=>dot.classList.toggle("active",i===idx));const c=document.getElementById("cap-"+id);if(c&&caps[id])c.textContent=caps[id][idx]||"";}
-function flash(id){["prev-","next-"].forEach(p=>{const b=document.getElementById(p+id);if(!b)return;b.style.opacity="1";clearTimeout(ft[p+id]);ft[p+id]=setTimeout(()=>{b.style.opacity="0.5"},500);});}
-function step(id,dir){if(state[id]===undefined)state[id]=0;const f=document.getElementById("f-"+id);if(!f)return;const t=f.querySelectorAll("img").length;state[id]=(state[id]+dir+t)%t;showSlide(id,state[id]);flash(id);}
-function goTo(id,idx){state[id]=idx;showSlide(id,idx);flash(id);}
-function switchM(id,el){document.querySelectorAll(".mpanel").forEach(p=>p.classList.remove("active"));document.querySelectorAll(".mtab").forEach(t=>t.classList.remove("active"));document.getElementById(id).classList.add("active");el.classList.add("active");}
-function switchS(main,sub,el){const p=document.getElementById(main);p.querySelectorAll(".spanel").forEach(x=>x.classList.remove("active"));p.querySelectorAll(".stab").forEach(t=>t.classList.remove("sc","s2","s9"));document.getElementById(main+"-"+sub).classList.add("active");el.classList.add(sub==="c"?"sc":sub==="2"?"s2":"s9");}
-["photo-c","photo-2","photo-9","email-c","email-2","email-9","phone-c","phone-2","phone-9"].forEach(id=>{state[id]=0;});
-document.addEventListener("keydown",function(e){
-  const lbOpen=document.getElementById("lightbox").classList.contains("open");
-  if(lbOpen&&e.key==="Escape"){closeLightbox();return;}
-  if(e.key!=="ArrowLeft"&&e.key!=="ArrowRight")return;
-  if(lbOpen){lbStep(e.key==="ArrowRight"?1:-1);return;}
-  const active=document.querySelector(".mpanel.active");
-  if(!active)return;
-  const sub=active.querySelector(".spanel.active");
-  if(!sub)return;
-  step(sub.id,e.key==="ArrowRight"?1:-1);
-});
-// Lightbox — native browser pinch-zoom, custom swipe-down dismiss only
-let _lbId=null;
-let _touch={x:0,y:0,t:0,active:false};
-let _dragY=0;
-let _dismissing=false;
+const LOGS = {
+  phone: ["Initializing scan…","Checking Truecaller…","Checking WhatsApp…","Checking food-delivery breach records…","Scanning Google search results…","Compiling account hints…"],
+  email: ["Initializing scan…","Checking Canva breach records…","Checking LinkedIn scrape data…","Checking data-broker sites…","Checking tagged locations…"],
+  photo: ["Initializing scan…","Checking matrimonial sites…","Checking portfolio & modeling sites…","Running Google reverse image search…","Checking people-search sites…"]
+};
 
-function getActiveId(){
-  const active=document.querySelector(".mpanel.active");
-  if(!active)return null;
-  const sub=active.querySelector(".spanel.active");
-  return sub?sub.id:null;
+const COUNTS = {
+  phone: {298:5, 998:6}, email: {298:4, 998:5}, photo: {298:5, 998:6}
+};
+
+let played = {phone:false,email:false,photo:false};
+let timers = [];
+let currentTier = '298';
+
+function clearTimers(){ timers.forEach(t=>clearTimeout(t)); timers=[]; }
+
+function switchTab(name){
+  document.querySelectorAll('.mtab').forEach(b=>b.classList.toggle('active', b.dataset.tab===name));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', p.id==='panel-'+name));
+  if(!played[name]){ runScan(name); }
 }
 
-function getLbImg(){return document.getElementById("lightbox-img");}
-function getLbStage(){return document.getElementById("lightbox-stage");}
-
-function isZoomed(){
-  // Stage is zoomed if scrollable content is larger than container
-  const s=getLbStage();
-  if(!s)return false;
-  return s.scrollWidth>s.clientWidth+4||s.scrollHeight>s.clientHeight+4;
-}
-
-function setDragY(y){
-  _dragY=y;
-  const img=getLbImg();
-  if(!img)return;
-  const opacity=Math.max(0.4,1-(y/220));
-  img.style.transition="none";
-  img.style.transform="translate3d(0,"+y+"px,0) scale("+(1-y/600)+")";
-  document.getElementById("lightbox").style.background="rgba(3,3,5,"+(0.94*opacity)+")";
-}
-
-function resetDragY(animate){
-  _dragY=0;
-  const img=getLbImg();
-  if(!img)return;
-  img.style.transition=animate?"transform .22s ease":"none";
-  img.style.transform="translate3d(0,0,0) scale(1)";
-  document.getElementById("lightbox").style.background="";
-}
-
-function openLightbox(src){
-  _lbId=getActiveId();
-  _dismissing=false;
-  const lb=document.getElementById("lightbox");
-  const img=getLbImg();
-  const stage=getLbStage();
-  img.style.transition="none";
-  img.style.transform="translate3d(0,0,0) scale(1)";
-  lb.style.background="";
-  img.src=src;
-  updateLightboxMeta();
-  lb.classList.add("open");
-  lb.setAttribute("aria-hidden","false");
-  lb.focus({preventScroll:true});
-  document.body.style.overflow="hidden";
-  // Safari fix: set explicit stage height after open so flex centering works
-  requestAnimationFrame(function(){
-    const barH=document.getElementById("lightbox-bar").offsetHeight||44;
-    stage.style.height=(window.innerHeight-barH)+"px";
-    stage.scrollLeft=0;stage.scrollTop=0;
+function setTier(tier){
+  currentTier = tier;
+  document.querySelectorAll('.ttab').forEach(b=>b.classList.toggle('active', b.dataset.tier===tier));
+  document.getElementById('wrap').classList.toggle('tier-998', tier==='998');
+  ['phone','email','photo'].forEach(name=>{
+    document.getElementById('tierbadge-'+name).textContent = tier==='298' ? '₹298 Privacy Scan' : '₹998 Deep Dive';
+    document.getElementById('countbadge-'+name).textContent = '⚠ '+COUNTS[name][tier]+' Leaks Found';
   });
+  document.getElementById('cta-h').textContent = tier==='298' ? 'This is a live demo.' : 'This is the ₹998 Deep Dive.';
+  document.getElementById('cta-n').textContent = tier==='298'
+    ? "Yours could look worse — and you won't know until you check. Real scans take under 5 minutes for phone & email."
+    : "Exact source links, full removal guidance, and every match — unlocked only when leaks are found.";
+  document.getElementById('cta-b').textContent = 'Check My Data';
 }
 
-function closeLightbox(){
-  if(_dismissing)return;
-  _dismissing=true;
-  const lb=document.getElementById("lightbox");
-  const img=getLbImg();
-  img.style.transition="transform .2s ease,opacity .2s ease";
-  img.style.transform="translate3d(0,80px,0) scale(0.9)";
-  img.style.opacity="0";
-  lb.style.transition="background .2s ease";
-  lb.style.background="rgba(3,3,5,0)";
-  setTimeout(function(){
-    lb.classList.remove("open");
-    lb.setAttribute("aria-hidden","true");
-    lb.style.transition="";lb.style.background="";
-    img.style.transition="";img.style.transform="";img.style.opacity="";
-    getLbStage().style.height="";
-    document.body.style.overflow="";
-    _lbId=null;_dragY=0;_dismissing=false;
-  },200);
-}
+function runScan(name){
+  clearTimers();
+  played[name]=true;
+  const consoleEl = document.getElementById('console-'+name);
+  const reportEl = document.getElementById('report-'+name);
+  const fillEl = document.getElementById('fill-'+name);
+  const logEl = document.getElementById('log-'+name);
+  const rows = document.querySelectorAll('#leaklist-'+name+' .leak-row');
+  const idVal = document.getElementById('idval-'+name);
+  const locCards = document.querySelectorAll('.loc-card[id^="loccard"][id$="-'+name+'"], #loccard-'+name+', #loccard2-'+name);
 
-function updateLightboxMeta(){
-  if(!_lbId)return;
-  const bar=document.getElementById("lightbox-bar");
-  const total=document.querySelectorAll("#f-"+_lbId+" img").length;
-  const cur=(state[_lbId]||0)+1;
-  if(bar)bar.textContent="Page "+cur+" of "+total+"  |  Swipe down to close";
-}
+  reportEl.classList.remove('show');
+  rows.forEach(r=>r.classList.remove('show'));
+  locCards.forEach(l=>l && l.classList.remove('show'));
+  idVal.classList.remove('reveal');
+  consoleEl.style.display='flex';
+  reportEl.style.display='none';
+  fillEl.style.width='0%';
+  logEl.classList.remove('show');
 
-function lbStep(dir){
-  if(!_lbId)return;
-  const f=document.getElementById("f-"+_lbId);
-  if(!f)return;
-  const imgs=f.querySelectorAll("img");
-  const total=imgs.length;
-  const cur=state[_lbId]||0;
-  const next=Math.max(0,Math.min(total-1,cur+dir));
-  if(next===cur)return;
-  state[_lbId]=next;
-  showSlide(_lbId,next);
-  flash(_lbId);
-  resetDragY(false);
-  getLbImg().src=imgs[next].src;
-  // Reset scroll on page change
-  requestAnimationFrame(function(){
-    const s=getLbStage();if(s){s.scrollLeft=0;s.scrollTop=0;}
+  const logs = LOGS[name];
+  const totalDuration = 2600;
+  const stepTime = totalDuration/logs.length;
+
+  logs.forEach((text,i)=>{
+    timers.push(setTimeout(()=>{
+      logEl.textContent = text;
+      logEl.classList.add('show');
+      fillEl.style.width = Math.round(((i+1)/logs.length)*100)+'%';
+    }, i*stepTime));
   });
-  updateLightboxMeta();
+
+  timers.push(setTimeout(()=>{
+    consoleEl.style.display='none';
+    reportEl.style.display='block';
+    requestAnimationFrame(()=>{
+      reportEl.classList.add('show');
+      idVal.classList.add('reveal');
+      rows.forEach((r,i)=>{
+        timers.push(setTimeout(()=>r.classList.add('show'), 120*i));
+      });
+      locCards.forEach((l,i)=>{
+        if(l) timers.push(setTimeout(()=>l.classList.add('show'), 120*(rows.length+1+i)));
+      });
+    });
+  }, totalDuration+150));
 }
 
-// Open on image tap
-document.addEventListener("click",function(e){
-  const img=e.target;
-  if(img.tagName!=="IMG"||!img.closest(".img-frame")||!img.classList.contains("visible"))return;
-  openLightbox(img.src);
-});
+runScan('phone');
 
-// Close button
-document.querySelector(".lightbox-close").addEventListener("click",function(e){
-  e.stopPropagation();
-  resetDragY(false);
-  closeLightbox();
-});
-
-// Tap outside image to close (desktop)
-document.getElementById("lightbox").addEventListener("click",function(e){
-  if(e.target.closest(".lightbox-close"))return;
-  if(e.target.closest(".lightbox-stage-inner"))return;
-  closeLightbox();
-});
-
-// ── TOUCH: swipe-down dismiss + swipe L/R page change ─────────────────────────
-// We only intercept single-finger swipes. Pinch-zoom is 100% native browser.
-document.getElementById("lightbox-stage").addEventListener("touchstart",function(e){
-  if(e.touches.length!==1)return;
-  _touch={x:e.touches[0].clientX,y:e.touches[0].clientY,t:Date.now(),active:true};
+const order=['phone','email','photo'];
+let tx=0, ty=0;
+const stageEl=document.getElementById('stage');
+stageEl.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+stageEl.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-tx;
+  const dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)<60||Math.abs(dx)<Math.abs(dy)*1.5)return;
+  const current=document.querySelector('.mtab.active').dataset.tab;
+  let idx=order.indexOf(current);
+  idx = dx<0 ? Math.min(idx+1, order.length-1) : Math.max(idx-1,0);
+  switchTab(order[idx]);
 },{passive:true});
 
-document.getElementById("lightbox-stage").addEventListener("touchmove",function(e){
-  if(!_touch.active||e.touches.length!==1)return;
-  const dx=e.touches[0].clientX-_touch.x;
-  const dy=e.touches[0].clientY-_touch.y;
-  const zoomed=isZoomed();
-
-  // Only handle dismiss drag when not zoomed AND swiping down
-  if(!zoomed&&dy>0&&Math.abs(dy)>Math.abs(dx)*1.3){
-    e.preventDefault();
-    setDragY(Math.min(dy,180));
-  }
-},{passive:false});
-
-document.getElementById("lightbox-stage").addEventListener("touchend",function(e){
-  if(!_touch.active)return;
-  const dx=e.changedTouches[0].clientX-_touch.x;
-  const dy=e.changedTouches[0].clientY-_touch.y;
-  const elapsed=Date.now()-_touch.t;
-  const zoomed=isZoomed();
-  _touch.active=false;
-
-  // Dismiss threshold
-  if(!zoomed&&dy>85&&dy>Math.abs(dx)*1.3){
-    closeLightbox();
-    return;
-  }
-
-  // Bounce back dismiss drag
-  if(_dragY>0){resetDragY(true);return;}
-
-  // Swipe L/R for page change — only when not zoomed and not scrolled
-  const stage=getLbStage();
-  const atLeft=!stage||stage.scrollLeft<4;
-  const atRight=!stage||stage.scrollLeft>stage.scrollWidth-stage.clientWidth-4;
-  if(!zoomed&&Math.abs(dx)>90&&Math.abs(dx)>Math.abs(dy)*1.6&&Math.abs(dy)<60&&elapsed>60){
-    if(dx<0&&atRight)lbStep(1);
-    else if(dx>0&&atLeft)lbStep(-1);
-  }
-},{passive:true});
-
-window.addEventListener("message",function(e){
-  if(e.data==="close-report-lightbox")closeLightbox();
-});
+function postHeight(){
+  const h = document.body.scrollHeight;
+  window.parent.postMessage({ type:'sms-report-height', height:h }, '*');
+}
+new ResizeObserver(postHeight).observe(document.body);
+window.addEventListener('load', postHeight);
 </script>
 </body>
 </html>
